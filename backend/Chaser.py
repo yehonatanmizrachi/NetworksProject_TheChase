@@ -23,6 +23,6 @@ class Chaser:
         return self.location
 
 # inc the location of the chaser if try_to_answer returned True
-    def inc_location(self):
+    def play(self):
         if self.try_to_answer():
             self.location = self.location + 1

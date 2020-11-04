@@ -3,6 +3,7 @@ class Player:
     def __init__(self, money=0, location=3):
         self.money = money
         self.location = location
+        self.used_life_line = False  # galgal hazala
 
     def get_location(self):
         return self.location
@@ -26,3 +27,12 @@ class Player:
 
     def get_money(self):
         return self.money
+
+    def get_life_line_status(self):
+        return self.used_life_line
+
+    def use_life_line(self):
+        if self.used_life_line:
+            return False
+        self.used_life_line = True
+        return True

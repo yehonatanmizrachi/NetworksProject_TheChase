@@ -29,11 +29,8 @@ class GameLogic:
     @staticmethod
     def start_part2(client):
         client.send_msg("Choose option:")
-        response = client.receive_msg()
-        # check if the input is valid
-        while response != "1" and response != "2" and response != "3":
-            client.send_msg("Invalid input. Please try again.")
-            response = client.receive_msg()
+        # receive valid input
+        response = client.receive_valid_msg(["1", "2", "3"])
         if response == "1":
             GameLogic.start_part3(client)
         elif response == "2":
@@ -49,6 +46,21 @@ class GameLogic:
 
     @staticmethod
     def start_part3(client):
+        # player
+        client.send_msg("Choose answer. 5 - for life line")
+        response = client.receive_valid_msg(["1", "2", "3", "4", "5"])
+        if response in ["1", "2", "3", "4"]:
+            correct = True  # add later from class Question
+            if correct:
+                client.player.inc_location()
+
+        # life line
+        else:
+            pass
+        # chaser
+        client.chaser.play()
+        client.send_game_status()
+
         print(f"Location: {client.player.get_location()} Money: {client.player.get_money()}")
 
 
