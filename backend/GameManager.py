@@ -35,7 +35,7 @@ class GameManager:
             if self.active_clients < self.max_active_client:
                 # start a new thread for the client and start the game
                 new_client = Client(client_socket, client_address)
-                thread = threading.Thread(target=GameLogic.start_part0, args=(new_client,))
+                thread = threading.Thread(target=self.handle_client, args=(new_client,))
                 thread.start()
                 self.active_clients += 1
                 print(f"active connections: {self.active_clients}")
@@ -43,6 +43,12 @@ class GameManager:
                 print("server is full. request denied!")
                 client_socket.send("Server is full. Please try again later.".encode(self.format))
                 client_socket.close()
+
+    def handle_client(self, client):
+        GameLogic.part0(client)
+        # assuming that the game ended
+        client.socket.close()
+        self.active_clients -= 1
 
 
 my_manager = GameManager()

@@ -4,7 +4,7 @@ import time
 
 
 class Client:
-    def __init__(self, socket, address):
+    def __init__(self, socket, address, bank_location=7):
         ########################################
         # socket settings
         self.socket = socket
@@ -14,6 +14,7 @@ class Client:
         ########################################
         self.player = Player()
         self.chaser = Chaser()
+        self.bank_location = bank_location
 
     def send_msg(self, msg):
         self.socket.send(msg.encode(self.format))
@@ -37,3 +38,12 @@ class Client:
                           f"Chaser's location: {self.chaser.get_location()} \n" \
                           f"Life line: {'available' if self.player.get_life_line_status() else 'unavailable'}"
         self.send_msg(game_status_msg)
+
+    def get_bank_location(self):
+        return self.bank_location
+
+    def reset(self):
+        del self.player
+        self.player = Player()
+        del self.chaser
+        self.chaser = Chaser()
