@@ -6,7 +6,7 @@ from Client import *
 class GameManager:
     def __init__(self):
         ########################################
-        # server settings
+        # socket settings
         self.port = 5050
         self.ip = "192.168.100.6"
         self.address = (self.ip, self.port)
@@ -47,11 +47,11 @@ class GameManager:
         connected = True
         while connected:
             # wait for a new massage
-            msg = client.socket.recv(self.msg_size).decode(self.format)
+            msg = client.receive_msg()
             if msg == self.disconnect_message:
                 connected = False
             print(f"[{client.address}] {msg}")
-            client.socket.send("Msg received".encode(self.format))
+            client.send_msg("received!")
         client.socket.close()
 
 
