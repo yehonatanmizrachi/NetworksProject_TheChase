@@ -10,7 +10,7 @@ class Chaser:
     @staticmethod
     def try_to_answer():
         num = random.randint(1, 101)
-        if num > 26:
+        if num <= 100 * Chaser.skill:
             return True
         else:
             return False

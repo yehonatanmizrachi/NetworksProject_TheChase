@@ -13,8 +13,16 @@ class Player:
     def dec_location(self):
         self.location = self.location - 1
 
-    def set_money(self, money):
-        self.money = money
+    def add_money(self, money):
+        self.money += money
+
+    # divide the player's money by 2
+    def div_money(self, money):
+        self.money /= 2
+
+    # double the player's money
+    def mul_money(self, money):
+        self.money *= 2
 
     def get_money(self):
         return self.money

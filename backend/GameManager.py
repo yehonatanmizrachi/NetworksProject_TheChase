@@ -1,6 +1,7 @@
 import socket
 import threading
 from Client import *
+from GameLogic import *
 
 
 class GameManager:
@@ -33,7 +34,7 @@ class GameManager:
             client_socket, client_address = self.socket.accept()
             if self.active_clients < self.max_active_client:
                 new_client = Client(client_socket, client_address)
-                thread = threading.Thread(target=self.handel_client, args=(new_client,))
+                thread = threading.Thread(target=GameLogic.start_part0, args=(new_client,))
                 thread.start()
                 self.active_clients += 1
                 print(f"active connections: {self.active_clients}")
@@ -42,7 +43,7 @@ class GameManager:
                 client_socket.close()
 
     # each client runs on a different thread
-    def handel_client(self, client):
+    def handle_client(self, client):
         print("connected successfully.")
         connected = True
         while connected:

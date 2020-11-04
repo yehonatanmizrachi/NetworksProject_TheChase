@@ -13,18 +13,20 @@ client.connect(ADDR)
 
 def send(msg):
     message = msg.encode(FORMAT)
-    msg_length = len(message)
-    send_length = str(msg_length).encode(FORMAT)
-    send_length += b' ' * (HEADER - len(send_length))
-    client.send(send_length)
+    # msg_length = len(message)
+    # send_length = str(msg_length).encode(FORMAT)
+    # send_length += b' ' * (HEADER - len(send_length))
+    # client.send(send_length)
     client.send(message)
-    print(client.recv(2048).decode(FORMAT))
+    print(client.recv(1024).decode(FORMAT))
 
 
-send("Hello World!")
+send("yes")
 input()
-send("Hello Everyone!")
+send("Answer1")
 input()
-send("Hello Tim!")
+send("Answer2")
+input()
+send("Answer3")
 
 send(DISCONNECT_MESSAGE)
