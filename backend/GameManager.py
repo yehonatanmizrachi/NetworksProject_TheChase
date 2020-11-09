@@ -8,47 +8,47 @@ class GameManager:
     def __init__(self):
         ########################################
         # socket settings
-        self.port = 5050
-        self.ip = "192.168.100.6"
-        self.address = (self.ip, self.port)
+        self.__port = 5050
+        self.__ip = socket.gethostname()
+        self.__address = (self.__ip, self.__port)
         # count how many active clients there is
-        self.active_clients = 0
+        self.__active_clients = 0
         # the size of the msg in bytes.
-        self.msg_size = 1024
-        self.format = 'utf-8'
-        self.disconnect_message = "!DISCONNECT"
-        self.max_active_client = 3
+        self.__msg_size = 1024
+        self.__format = 'utf-8'
+        self.__disconnect_message = "!DISCONNECT"
+        self.__max_active_client = 3
         # server socket
         # AF_INET -> address family IPV4, SOCK_STREAM -> protocol TCP
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.bind(self.address)
+        self.__socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.__socket.bind(self.__address)
         ########################################
 
     # start listening to requests(a thread that always runs in the background)
     # and open a new thread for each client
     def get_new_clients(self):
         print("server is listening...")
-        self.socket.listen()
+        self.__socket.listen()
         while True:
             # wait for a new connection
-            client_socket, client_address = self.socket.accept()
-            if self.active_clients < self.max_active_client:
+            client_socket, client_address = self.__socket.accept()
+            if self.__active_clients < self.__max_active_client:
                 # start a new thread for the client and start the game
                 new_client = Client(client_socket, client_address)
                 thread = threading.Thread(target=self.handle_client, args=(new_client,))
                 thread.start()
-                self.active_clients += 1
-                print(f"active connections: {self.active_clients}")
+                self.__active_clients += 1
+                print(f"active connections: {self.__active_clients}")
             else:
                 print("server is full. request denied!")
-                client_socket.send("Server is full. Please try again later.".encode(self.format))
+                client_socket.send("Server is full. Please try again later.".encode(self.__format))
                 client_socket.close()
 
     def handle_client(self, client):
         GameLogic.part0(client)
         # assuming that the game ended
         client.socket.close()
-        self.active_clients -= 1
+        self.__active_clients -= 1
 
 
 my_manager = GameManager()

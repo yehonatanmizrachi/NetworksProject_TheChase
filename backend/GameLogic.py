@@ -16,13 +16,13 @@ class GameLogic:
     @staticmethod
     def part1(client):
         client.send_msg("question1")
-        if client.receive_msg() == "Answer1":
+        if client.receive_msg() == "1":
             client.player.add_money(5000)
         client.send_msg("question2")
-        if client.receive_msg() == "Answer2":
+        if client.receive_msg() == "1":
             client.player.add_money(5000)
         client.send_msg("question3")
-        if client.receive_msg() == "Answer3":
+        if client.receive_msg() == "1":
             client.player.add_money(5000)
         if client.player.get_money() > 0:
             GameLogic.part2(client)

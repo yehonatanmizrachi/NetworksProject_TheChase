@@ -3,9 +3,6 @@ import random
 
 class Chaser:
 
-    skill = 0.75
-    init_location = 0
-
     # generate random num from 1 to 100 and return true 75% of the time
     @staticmethod
     def try_to_answer():
@@ -16,13 +13,15 @@ class Chaser:
             return False
 
     def __init__(self, location='0'):
-        self.location = location
+        self.__location = location
+        self.__skill = 0.75
+        self.__init_location = 0
 
 # return the location value of the chaser
     def get_location(self):
-        return self.location
+        return self.__location
 
 # inc the location of the chaser if try_to_answer returned True
     def play(self):
         if self.try_to_answer():
-            self.location = self.location + 1
+            self.__location = self.__location + 1

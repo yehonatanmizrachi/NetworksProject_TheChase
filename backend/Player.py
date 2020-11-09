@@ -1,38 +1,38 @@
 class Player:
 
     def __init__(self, money=0, location=3):
-        self.money = money
-        self.location = location
-        self.used_life_line = False  # galgal hazala
+        self.__money = money
+        self.__location = location
+        self.__used_life_line = False  # galgal hazala
 
     def get_location(self):
-        return self.location
+        return self.__location
 
     def inc_location(self):
-        self.location = self.location + 1
+        self.__location = self.__location + 1
 
     def dec_location(self):
-        self.location = self.location - 1
+        self.__location = self.__location - 1
 
     def add_money(self, money):
-        self.money += money
+        self.__money += money
 
     # divide the player's money by 2
     def div_money(self):
-        self.money /= 2
+        self.__money /= 2
 
     # double the player's money
     def mul_money(self):
-        self.money *= 2
+        self.__money *= 2
 
     def get_money(self):
-        return self.money
+        return self.__money
 
     def get_life_line_status(self):
-        return self.used_life_line
+        return self.__used_life_line
 
     def use_life_line(self):
-        if self.used_life_line:
+        if self.__used_life_line:
             return False
-        self.used_life_line = True
+        self.__used_life_line = True
         return True
