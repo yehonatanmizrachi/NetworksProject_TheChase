@@ -11,6 +11,7 @@ class GameLogic:
             GameLogic.part1(client)
         else:
             print("client don't want to play")
+			# send dissconnect message!!
             client.socket.close()
 
     @staticmethod

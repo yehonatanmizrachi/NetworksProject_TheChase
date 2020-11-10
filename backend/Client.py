@@ -8,21 +8,21 @@ class Client:
         ########################################
         # socket settings
         self.socket = socket
-        self.__address = address
-        self.__msg_size = 1024
-        self.__format = 'utf-8'
+        self.address = address
+        self.msg_size = 1024
+        self.format = 'utf-8'
         ########################################
         self.player = Player()
         self.chaser = Chaser()
-        self.__bank_location = bank_location
+        self.bank_location = bank_location
 
     def send_msg(self, msg):
-        self.socket.send(msg.encode(self.__format))
+        self.socket.send(msg.encode(self.format))
         # wait 0.1 sec so that each message will be sent separately
         time.sleep(0.1)
 
     def receive_msg(self):
-        return self.socket.recv(self.__msg_size).decode(self.__format)
+        return self.socket.recv(self.msg_size).decode(self.format)
 
     # checks if the msg is valid. If not, ask for a new response
     def receive_valid_msg(self, options):
@@ -40,7 +40,7 @@ class Client:
         self.send_msg(game_status_msg)
 
     def get_bank_location(self):
-        return self.__bank_location
+        return self.bank_location
 
     def reset(self):
         del self.player
