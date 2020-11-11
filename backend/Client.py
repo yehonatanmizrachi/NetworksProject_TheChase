@@ -1,9 +1,24 @@
 from Player import *
 from Chaser import *
 import time
+from StringDB import *
+import random
 
 
 class Client:
+    @staticmethod
+    def get_random_questions():
+        random_questions = list(range(len(STR_DB["Q"])))
+        random.shuffle(random_questions)
+        return random_questions
+
+    @staticmethod
+    def parse_question(question):
+        msg = f"\n{question[0]}\n"
+        for i, ans in enumerate(question[1]):
+            msg += f"{i+1}: {ans[0]}\n"
+        return msg
+
     def __init__(self, socket, address, bank_location=7):
         ########################################
         # socket settings
@@ -15,6 +30,8 @@ class Client:
         self.player = Player()
         self.chaser = Chaser()
         self.bank_location = bank_location
+        self.random_questions = Client.get_random_questions()
+        self.current_question = 0
 
     def send_msg(self, msg):
         self.socket.send(msg.encode(self.format))
@@ -26,18 +43,18 @@ class Client:
 
     # checks if the msg is valid. If not, ask for a new response
     def receive_valid_msg(self, options):
-        response = self.receive_msg()
+        response = self.receive_msg().lower()
         while response not in options:
             self.send_msg("Invalid input. Please try again.")
-            response = self.receive_msg()
+            response = self.receive_msg().lower()
         return response
 
-    def send_game_status(self):
-        game_status_msg = f"Your money: {self.player.get_money()} \n" \
+    def get_game_status(self):
+        game_status_msg = f"\nYour money: {self.player.get_money()} \n" \
                           f"Your location: {self.player.get_location()} \n" \
                           f"Chaser's location: {self.chaser.get_location()} \n" \
-                          f"Life line: {'available' if self.player.get_life_line_status() else 'unavailable'}"
-        self.send_msg(game_status_msg)
+                          f"Life line: {'available' if self.player.get_life_line_status() else 'unavailable'}\n"
+        return game_status_msg
 
     def get_bank_location(self):
         return self.bank_location
@@ -47,3 +64,29 @@ class Client:
         self.player = Player()
         del self.chaser
         self.chaser = Chaser()
+        self.current_question = 0
+        self.random_questions = Client.get_random_questions()
+
+    def ask_question(self, part):
+        question = self.get_next_question()
+        msg = ""
+        if part == 1:
+            # DEBUG!!!
+            msg = self.get_game_status()
+        elif part == 3:
+            msg = "Choose answer. 5 - for life line"
+        msg += Client.parse_question(question)
+
+        self.send_msg(msg)
+        response = int(self.receive_valid_msg([str(i + 1) for i, x in enumerate(question[1])])) - 1
+        if response == len(question[1]):
+            # life line
+            pass
+
+        return question[1][response][1]
+
+    def get_next_question(self):
+        question = STR_DB["Q"][self.random_questions[self.current_question]]
+        random.shuffle(question[1])
+        self.current_question += 1
+        return question

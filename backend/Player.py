@@ -32,6 +32,7 @@ class Player:
         return self.used_life_line
 
     def use_life_line(self):
+        # !!!
         if self.used_life_line:
             return False
         self.used_life_line = True

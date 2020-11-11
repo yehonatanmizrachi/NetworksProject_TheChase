@@ -9,7 +9,8 @@ class GameManager:
         ########################################
         # socket settings
         self.port = 5050
-        self.ip = socket.gethostbyname(socket.gethostname())
+        # self.ip = socket.gethostbyname(socket.gethostname())
+        self.ip = "10.0.0.5"
         self.address = (self.ip, self.port)
         # count how many active clients there is
         self.active_clients = 0
