@@ -42,7 +42,8 @@ class GameManager:
                 print(f"active connections: {self.active_clients}")
             else:
                 print("server is full. request denied!")
-                client_socket.send("Server is full. Please try again later.".encode(self.format))
+                client_socket.send("Server is full. Please try again later. Press enter to exit".encode(self.format))
+                client_socket.send(STR_DB["disconnect"].encode(self.format))
                 client_socket.close()
 
     def handle_client(self, client):

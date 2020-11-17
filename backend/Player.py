@@ -19,7 +19,7 @@ class Player:
 
     # divide the player's money by 2
     def div_money(self):
-        self.money /= 2
+        self.money = int(self.money / 2)
 
     # double the player's money
     def mul_money(self):

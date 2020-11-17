@@ -50,10 +50,19 @@ class Client:
         return response
 
     def get_game_status(self):
-        game_status_msg = f"\nYour money: {self.player.get_money()} \n" \
-                          f"Your location: {self.player.get_location()} \n" \
-                          f"Chaser's location: {self.chaser.get_location()} \n" \
-                          f"Life line: {'available' if self.player.get_life_line_status() else 'unavailable'}\n"
+        board = ["      " for i in range(self.bank_location + 1)]
+        board[self.player.get_location()] = "Player"
+        board[self.chaser.get_location()] = "Chaser"
+        board[self.bank_location] = " Bank "
+
+        game_status_msg = f"-------------------------------------\n"
+        for i, position in enumerate(board):
+            game_status_msg += f"|        {i}         |     {position}     |\n"
+        game_status_msg += f"-------------------------------------\n"
+
+        game_status_msg += f"\nMoney: {self.player.get_money()} \n" \
+                           f"Life line: {'unavailable' if self.player.get_life_line_status() else 'available'}\n" \
+
         return game_status_msg
 
     def get_bank_location(self):
@@ -69,15 +78,12 @@ class Client:
 
     def ask_question(self, part=3):
         question = self.get_next_question()
-        msg = ""
+        msg = self.get_game_status()
         ans_range = 0
         if part == 1:
-            # DEBUG!!!
-            msg = self.get_game_status()
             ans_range = len(question[1])
         elif part == 3:
-
-            msg = STR_DB["p3Qheader"]
+            msg += STR_DB["p3Qheader"]
             ans_range = len(question[1]) + 1
         msg += Client.parse_question(question)
 

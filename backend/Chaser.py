@@ -2,7 +2,7 @@ import random
 
 
 class Chaser:
-    def __init__(self, location='0'):
+    def __init__(self, location=0):
         self.location = location
         self.skill = 0.75
         self.init_location = 0
