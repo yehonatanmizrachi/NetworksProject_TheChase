@@ -70,23 +70,44 @@ class Client:
     def ask_question(self, part):
         question = self.get_next_question()
         msg = ""
+        ans_range = 0
         if part == 1:
             # DEBUG!!!
             msg = self.get_game_status()
+            ans_range = len(question[1])
         elif part == 3:
             msg = "Choose answer. 5 - for life line"
+            ans_range = len(question[1]) + 1
         msg += Client.parse_question(question)
 
         self.send_msg(msg)
-        response = int(self.receive_valid_msg([str(i + 1) for i, x in enumerate(question[1])])) - 1
+        response = int(self.receive_valid_msg([str(i + 1) for i in range(ans_range)])) - 1
+
         if response == len(question[1]):
-            # life line
-            pass
+            if not self.player.get_life_line_status():
+                new_ans = []
+                for i, ans in enumerate(question[1]):
+                    if ans[1]:
+                        new_ans.append(ans)
+                        question[1].pop(i)
+                for ans in question[1][0:int(len(question[1])/2)]:
+                    new_ans.append(ans)
+                random.shuffle(new_ans)
+                question[1] = new_ans
+
+                msg = "Life line activated. Please select your answer"
+                msg += Client.parse_question(question)
+                self.send_msg(msg)
+                response = int(self.receive_valid_msg([str(i + 1) for i, x in enumerate(range(0, len(question[1])))]))-1
+                self.player.used_life_line = True
+            else:
+                self.send_msg(STR_DB["usedLifeLine"])
+                response = int(self.receive_valid_msg([str(i + 1) for i, x in enumerate(range(0, len(question[1])))]))-1
 
         return question[1][response][1]
 
     def get_next_question(self):
-        question = STR_DB["Q"][self.random_questions[self.current_question]]
+        question = copy_question(STR_DB["Q"][self.random_questions[self.current_question]])
         random.shuffle(question[1])
         self.current_question += 1
         return question

@@ -22,7 +22,7 @@ STR_DB = {
     },
     
     "disconnect": "!DISCONNECT",
-
+    "usedLifeLine": "you already used the life line. Please choose answer.",
     "Q": [
         ["question1", [["aaaaa", True], ["bbbb", False], ["cccc", False], ["dddd", False]]],
         ["question2", [["aaaaa", True], ["bbbb", False], ["cccc", False], ["dddd", False]]],
@@ -42,3 +42,8 @@ STR_DB = {
     ]
 
 }
+
+
+def copy_question(question):
+    copy = [question[0], [ans.copy() for ans in question[1]]]
+    return copy
