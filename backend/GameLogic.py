@@ -51,7 +51,7 @@ class GameLogic:
     @staticmethod
     def part3(client):
         # player
-        if client.ask_question(3):
+        if client.ask_question():
             client.player.inc_location()
         # chaser
         client.chaser.play()

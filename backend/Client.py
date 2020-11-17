@@ -45,7 +45,7 @@ class Client:
     def receive_valid_msg(self, options):
         response = self.receive_msg().lower()
         while response not in options:
-            self.send_msg("Invalid input. Please try again.")
+            self.send_msg(STR_DB["invalid"])
             response = self.receive_msg().lower()
         return response
 
@@ -67,7 +67,7 @@ class Client:
         self.current_question = 0
         self.random_questions = Client.get_random_questions()
 
-    def ask_question(self, part):
+    def ask_question(self, part=3):
         question = self.get_next_question()
         msg = ""
         ans_range = 0
@@ -76,7 +76,8 @@ class Client:
             msg = self.get_game_status()
             ans_range = len(question[1])
         elif part == 3:
-            msg = "Choose answer. 5 - for life line"
+
+            msg = STR_DB["p3Qheader"]
             ans_range = len(question[1]) + 1
         msg += Client.parse_question(question)
 
@@ -95,7 +96,7 @@ class Client:
                 random.shuffle(new_ans)
                 question[1] = new_ans
 
-                msg = "Life line activated. Please select your answer"
+                msg = STR_DB["activateLifeLine"]
                 msg += Client.parse_question(question)
                 self.send_msg(msg)
                 response = int(self.receive_valid_msg([str(i + 1) for i, x in enumerate(range(0, len(question[1])))]))-1
