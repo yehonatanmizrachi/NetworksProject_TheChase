@@ -3,7 +3,7 @@ class Player:
     def __init__(self, money=0, location=3):
         self.money = money
         self.location = location
-        self.used_life_line = False  # galgal hazala
+        self.used_life_line = False  # life line
 
     def get_location(self):
         return self.location

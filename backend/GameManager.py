@@ -1,6 +1,5 @@
 import socket
 import threading
-from Client import *
 from GameLogic import *
 
 
@@ -10,7 +9,7 @@ class GameManager:
         # socket settings
         self.port = 5050
         # self.ip = socket.gethostbyname(socket.gethostname())
-        self.ip = "10.0.0.5"
+        self.ip = "192.168.43.56"
         self.address = (self.ip, self.port)
         # count how many active clients there is
         self.active_clients = 0
@@ -23,7 +22,7 @@ class GameManager:
         # AF_INET -> address family IPV4, SOCK_STREAM -> protocol TCP
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind(self.address)
-        ########################################
+        ##########################################
 
     # start listening to requests(a thread that always runs in the background)
     # and open a new thread for each client
@@ -53,5 +52,6 @@ class GameManager:
         self.active_clients -= 1
 
 
+# start from here
 my_manager = GameManager()
 my_manager.get_new_clients()

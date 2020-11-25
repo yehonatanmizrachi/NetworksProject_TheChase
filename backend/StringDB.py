@@ -8,8 +8,11 @@ STR_DB = {
         "wantToPlay_ans": "yes"
     },
     "part2": {
-        "wantToPlay": "Do you want to play? (yes/no)",
-        "wantToPlay_ans": "yes"
+        "options": "Please choose one of the following options:\n"
+                   "1- start at location 3 with your current money\n"
+                   "2- start at location 2 with double money\n"
+                   "3- start at location 4 with half money\n"
+
     },
     "part3": {
         "wantToPlay": "Do you want to play? (yes/no)",
@@ -38,7 +41,7 @@ STR_DB = {
         ["How many minutes are there per hour?", [["60", True], ["50", False], ["90", False], ["120", False]]],
         ["How many degrees are in a triangle?", [["180", True], ["190", False], ["90", False], ["100", False]]],
         ["What's the police phone number?", [["100", True], ["101", False], ["102", False], ["106", False]]],
-        ["What is the best university?", [["Bar Ilan", True], ["Tel Aviv", False], ["Haifa", False], ["Ben Gurion", False]]],
+        ["Which one is the best university?", [["Bar Ilan", True], ["Tel Aviv", False], ["Haifa", False], ["Ben Gurion", False]]],
         ["What color appears in a rainbow?", [["Yellow", True], ["Black", False], ["Silver", False], ["Pink", False]]],
         ["What color is not appears in a rainbow?", [["Gold", True], ["Green", False], ["Purple", False], ["Blue", False]]],
         ["How many colors are there in a rainbow?", [["7", True], ["5", False], ["8", False], ["10", False]]]

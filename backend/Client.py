@@ -6,12 +6,14 @@ import random
 
 
 class Client:
+    # for each client generate random sequence of questions
     @staticmethod
     def get_random_questions():
         random_questions = list(range(len(STR_DB["Q"])))
         random.shuffle(random_questions)
         return random_questions
 
+    # beautify questions for the client
     @staticmethod
     def parse_question(question):
         msg = f"\n{question[0]}\n"
@@ -26,12 +28,13 @@ class Client:
         self.address = address
         self.msg_size = 1024
         self.format = 'utf-8'
-        ########################################
         self.player = Player()
         self.chaser = Chaser()
         self.bank_location = bank_location
         self.random_questions = Client.get_random_questions()
         self.current_question = 0
+        self.num_of_part1_q = 3
+        ########################################
 
     def send_msg(self, msg):
         self.socket.send(msg.encode(self.format))
@@ -49,6 +52,7 @@ class Client:
             response = self.receive_msg().lower()
         return response
 
+    # generate the status of the game - money, locations, life line, etc.
     def get_game_status(self):
         board = ["      " for i in range(self.bank_location + 1)]
         board[self.player.get_location()] = "Player"
@@ -68,6 +72,7 @@ class Client:
     def get_bank_location(self):
         return self.bank_location
 
+    # use before starting a another game
     def reset(self):
         del self.player
         self.player = Player()
@@ -78,21 +83,27 @@ class Client:
 
     def ask_question(self, part=3):
         question = self.get_next_question()
-        msg = self.get_game_status()
+        # msg header
+        msg = ''
         ans_range = 0
         if part == 1:
             ans_range = len(question[1])
         elif part == 3:
+            msg += self.get_game_status()
             msg += STR_DB["p3Qheader"]
             ans_range = len(question[1]) + 1
+        # add the question to the header
         msg += Client.parse_question(question)
 
         self.send_msg(msg)
+        # get the response
         response = int(self.receive_valid_msg([str(i + 1) for i in range(ans_range)])) - 1
 
+        # if used life line
         if response == len(question[1]):
             if not self.player.get_life_line_status():
                 new_ans = []
+                # make the 50/50 life line
                 for i, ans in enumerate(question[1]):
                     if ans[1]:
                         new_ans.append(ans)
