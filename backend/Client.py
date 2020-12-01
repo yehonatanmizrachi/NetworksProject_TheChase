@@ -16,7 +16,7 @@ class Client:
     # beautify questions for the client
     @staticmethod
     def parse_question(question):
-        msg = f"\n{question[0]}\n"
+        msg = f"{question[0]}\n"
         for i, ans in enumerate(question[1]):
             msg += f"{i+1}: {ans[0]}\n"
         return msg

@@ -20,6 +20,7 @@ def start_part0(socket):
 
     def dont_want_to_play():
         root.destroy()
+        socket.send("no")
         socket.close()
         exit()
 

@@ -1,17 +1,30 @@
 import tkinter as tk
 import tkinter.font as tk_font
-from GUI_helper import update_gui_question
+from GUI_helper import *
 HEIGHT = 400
 WIDTH = 550
 BG = '#80c1ff'
 FONT_STYLE = "Lucida Grande"
 
-
-def choose_answer(index):
-    print(index)
+q_counter = 0
 
 
 def start_part1(socket):
+    global q_counter
+
+    def choose_answer(index):
+        global q_counter
+
+        if q_counter < 3:
+            socket.send(index)
+            current_q = socket.get_msg()
+            parsed_current_q = parse_question(current_q)
+            update_gui_question(gui_list, parsed_current_q)
+            q_counter += 1
+            print(q_counter)
+        else:
+            print("part2!")
+
     root = tk.Tk()
     root.title("The Chase - part1")
 
@@ -46,8 +59,12 @@ def start_part1(socket):
 
     gui_list = [q_label, ans1_label, ans2_label, ans3_label, ans4_label]
 
-    update_gui_question(gui_list,
-                        ["What color is not appears in a rainbow?", "Ben Gurion","Ben Gurion","Ben Gurion","Ben Gurion"])
+    # first question
+    msg = socket.get_msg()
+    parsed_q = parse_question(msg)
+    update_gui_question(gui_list, parsed_q)
+
+    q_counter += 1
 
     root.mainloop()
 
