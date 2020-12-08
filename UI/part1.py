@@ -14,7 +14,8 @@ q_counter = 0
 
 def start_part1(socket):
     global q_counter
-
+    q_counter = 0
+    
     def choose_option(current_msg):
 
         def init_location(option):
