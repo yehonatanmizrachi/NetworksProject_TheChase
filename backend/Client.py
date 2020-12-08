@@ -42,7 +42,9 @@ class Client:
         time.sleep(0.1)
 
     def receive_msg(self):
-        return self.socket.recv(self.msg_size).decode(self.format)
+        msg = self.socket.recv(self.msg_size).decode(self.format)
+        print(msg)
+        return msg
 
     # checks if the msg is valid. If not, ask for a new response
     def receive_valid_msg(self, options):

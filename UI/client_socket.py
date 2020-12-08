@@ -1,4 +1,6 @@
 import socket
+import tkinter as tk
+from part0 import start_part0
 
 HEADER = 1024
 PORT = 5050
@@ -12,6 +14,10 @@ class Client:
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.connect(ADDR)
         self.disconnect_message = "!DISCONNECT"
+        self.lose_counter = -1
+        self.root = tk.Tk()
+        self.canvas = tk.Canvas(self.root)
+        self.canvas.pack()
 
     def send(self, msg):
         msg = str(msg)
@@ -25,3 +31,11 @@ class Client:
     # close socket and exit game
     def close(self):
         self.server.close()
+
+    def start_game(self):
+        self.lose_counter += 1
+        start_part0(self)
+
+    def init_window(self, width, height, title):
+        self.root.title(title)
+        self.canvas.config(width=width, height=height)

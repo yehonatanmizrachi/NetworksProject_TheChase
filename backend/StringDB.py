@@ -23,9 +23,9 @@ STR_DB = {
         "playerWin": "Well Played. You Won!",
         "playAgain": "Do you want to play again? (yes/no)"
     },
-    "activateLifeLine": "Life line activated. Please select your answer:",
+    "activateLifeLine": "Life line activated. Please select your answer:\n",
     "invalid": "Invalid input. Please try again",
-    "p3Qheader": "Choose answer. 5 - for life line",
+    "p3Qheader": "Choose answer. 5 - for life line\n",
     
     "disconnect": "!DISCONNECT",
     "usedLifeLine": "you already used the life line. Please choose an answer.",

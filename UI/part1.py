@@ -1,8 +1,11 @@
 import tkinter as tk
 import tkinter.font as tk_font
+from part2 import start_part2
 from GUI_helper import *
-HEIGHT = 400
+
 WIDTH = 550
+HEIGHT = 400
+TITLE = "The Chase - part1"
 BG = '#80c1ff'
 FONT_STYLE = "Lucida Grande"
 
@@ -12,28 +15,49 @@ q_counter = 0
 def start_part1(socket):
     global q_counter
 
+    def choose_option(current_msg):
+
+        def init_location(option):
+            socket.send(option)
+            options_frame.destroy()
+            start_part2(socket)
+
+        options_frame = tk.Frame(socket.root, bg=BG, bd=10)
+        options_frame.place(relwidth=1, relheight=1)
+
+        choose_label = tk.Label(options_frame, text="Choose one of the following options:", bg=BG, font=font_style)
+        choose_label.place(anchor='n', relx=0.5, rely=0.05, relwidth=1, relheight=0.3)
+
+        op1_button = tk.Button(options_frame, text="start at location 3 with your current money", font='40', command=lambda: init_location(1))
+        op1_button.place(anchor='n', relx=0.5, rely=0.4, relwidth=0.8, relheight=0.15)
+
+        op2_button = tk.Button(options_frame, text="start at location 2 with double money", font='40', command=lambda: init_location(2))
+        op2_button.place(anchor='n', relx=0.5, rely=0.6, relwidth=0.8, relheight=0.15)
+
+        op3_button = tk.Button(options_frame, text="start at location 4 with half money", font='40', command=lambda: init_location(3))
+        op3_button.place(anchor='n', relx=0.5, rely=0.8, relwidth=0.8, relheight=0.15)
+
     def choose_answer(index):
         global q_counter
-
+        socket.send(index)
         if q_counter < 3:
-            socket.send(index)
             current_q = socket.get_msg()
             parsed_current_q = parse_question(current_q)
             update_gui_question(gui_list, parsed_current_q)
             q_counter += 1
-            print(q_counter)
         else:
-            print("part2!")
+            main_frame.destroy()
+            current_msg = socket.get_msg()
+            if current_msg[0] == "D":
+                socket.start_game()
+            else:
+                choose_option(current_msg)
 
-    root = tk.Tk()
-    root.title("The Chase - part1")
+    socket.init_window(WIDTH, HEIGHT, TITLE)
 
-    canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
-    canvas.pack()
+    font_style = tk_font.Font(family=FONT_STYLE, size=15)
 
-    font_style = tk_font.Font(family=FONT_STYLE, size=18)
-
-    main_frame = tk.Frame(root, bg=BG, bd=10)
+    main_frame = tk.Frame(socket.root, bg=BG, bd=10)
     main_frame.place(relwidth=1, relheight=1)
     # question
     q_label = tk.StringVar()
@@ -65,6 +89,3 @@ def start_part1(socket):
     update_gui_question(gui_list, parsed_q)
 
     q_counter += 1
-
-    root.mainloop()
-
