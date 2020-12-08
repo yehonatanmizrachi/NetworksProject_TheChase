@@ -32,9 +32,9 @@ class Client:
     def close(self):
         self.server.close()
 
-    def start_game(self):
+    def start_game(self, msg):
         self.lose_counter += 1
-        start_part0(self)
+        start_part0(self, msg)
 
     def init_window(self, width, height, title):
         self.root.title(title)

@@ -10,12 +10,38 @@ FONT_STYLE = "Lucida Grande"
 
 
 def start_part2(socket):
+    def check_game_over(server_msg):
+        if server_msg[0] == 'G' or server_msg[0] == 'W':
+            main_frame.destroy()
+            money_frame.destroy()
+            ll_frame.destroy()
+            location_frame.destroy()
+            end_msg = ""
+            if server_msg[0] == 'G':
+                end_msg = "Game Over. Chaser Won ☹!\nDo you want to play again?"
+            elif server_msg[0] == 'W':
+                end_msg = "Well Played. You Won " + money_label_var.get() + "$🙂!\nDo you want to play again?"
+            socket.start_game(end_msg)
+            return 0
+        else:
+            return 1
+
     def choose_answer(index):
         socket.send(index)
         current_msg = socket.get_msg()
-        current_info_list = parse_question_part2(current_msg)
-        update_gui_question(q_gui_list, current_info_list[0])
-        update_gui_info(info_gui_list, current_info_list)
+        if check_game_over(current_msg):
+            if index == 5:
+                life_line(current_msg, q_gui_list)
+                ll_label["state"] = "disabled"
+                ans3_button["state"] = "disabled"
+                ans4_button["state"] = "disabled"
+                ll_label_var.set("0")
+            else:
+                ans3_button["state"] = "normal"
+                ans4_button["state"] = "normal"
+                current_info_list = parse_question_part2(current_msg)
+                update_gui_question(q_gui_list, current_info_list[0])
+                update_gui_info(info_gui_list, current_info_list)
 
     socket.init_window(WIDTH, HEIGHT, TITLE)
 

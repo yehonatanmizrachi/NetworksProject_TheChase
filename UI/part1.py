@@ -8,6 +8,7 @@ HEIGHT = 400
 TITLE = "The Chase - part1"
 BG = '#80c1ff'
 FONT_STYLE = "Lucida Grande"
+PLAY_AGAIN_MSG = "You don't have any money ☹\nDo you want to play again?"
 
 q_counter = 0
 
@@ -50,7 +51,7 @@ def start_part1(socket):
             main_frame.destroy()
             current_msg = socket.get_msg()
             if current_msg[0] == "D":
-                socket.start_game()
+                socket.start_game(PLAY_AGAIN_MSG)
             else:
                 choose_option(current_msg)
 

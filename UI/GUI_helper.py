@@ -44,8 +44,23 @@ def parse_question(server_msg):
     return question
 
 
-def parse_ll(server_msg):
-    pass
+def life_line(server_msg, ans_gui_list):
+    server_msg = substring_lines(server_msg, 2)
+    ans = []
+    counter = 0
+    for i in range(2):
+        ans.append("")
+        while server_msg[counter] != '\n':
+            ans[i] += server_msg[counter]
+            counter += 1
+        ans[i] = ans[i][3:]
+        counter += 1
+    ans.append("X")
+    ans.append("X")
+
+    for i in range(4):
+        ans_gui_list[i+1].set(ans[i])
+
 
 def parse_question_part2(server_msg):
     if server_msg[0] == 'P':
