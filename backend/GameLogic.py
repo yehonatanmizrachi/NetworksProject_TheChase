@@ -80,6 +80,7 @@ class GameLogic:
             if response == "yes":
                 return 2
             else:
+                client.send_msg(STR_DB["disconnect"])
                 return 1
         # case 2: Player wins
         elif client.player.get_location() == client.get_bank_location():

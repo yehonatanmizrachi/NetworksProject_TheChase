@@ -1,5 +1,6 @@
 import random
 
+
 class Chaser:
     def __init__(self, location=0):
         self.location = location

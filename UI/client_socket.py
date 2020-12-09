@@ -6,7 +6,7 @@ import simpleaudio as sa
 HEADER = 1024
 PORT = 5050
 FORMAT = 'utf-8'
-SERVER_IP = "10.0.0.8"
+SERVER_IP = socket.gethostbyname(socket.gethostname())
 ADDR = (SERVER_IP, PORT)
 
 

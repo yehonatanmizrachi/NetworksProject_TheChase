@@ -4,7 +4,7 @@ HEADER = 1024
 PORT = 5050
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
-SERVER_IP = "10.0.0.8"
+SERVER_IP = socket.gethostbyname(socket.gethostname())
 ADDR = (SERVER_IP, PORT)
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -21,4 +21,5 @@ while connected:
     server.send(user_input.encode(FORMAT))
 
 # close socket and exit game
+print("a")
 server.close()
