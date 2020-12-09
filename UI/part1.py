@@ -18,11 +18,12 @@ def start_part1(socket):
     q_counter = 0
     
     def choose_option(current_msg):
-
         def init_location(option):
             socket.send(option)
             options_frame.destroy()
             start_part2(socket)
+
+        socket.start_audio("part2")
 
         options_frame = tk.Frame(socket.root, bg=BG, bd=10)
         options_frame.place(relwidth=1, relheight=1)
@@ -50,7 +51,10 @@ def start_part1(socket):
         else:
             main_frame.destroy()
             current_msg = socket.get_msg()
+            socket.audio.stop()
             if current_msg[0] == "D":
+                socket.audio.stop()
+                socket.start_audio("lose")
                 socket.start_game(PLAY_AGAIN_MSG)
             else:
                 choose_option(current_msg)

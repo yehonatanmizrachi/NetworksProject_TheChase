@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.font as tk_font
 from part1 import start_part1
 
+
 WIDTH = 450
 HEIGHT = 300
 TITLE = "The Chase - part0"
@@ -11,6 +12,7 @@ FONT_STYLE = "Lucida Grande"
 
 
 def start_part0(socket, start_game_msg):
+    socket.start_audio("part0")
     socket.init_window(WIDTH, HEIGHT, TITLE)
 
     def want_to_play():
