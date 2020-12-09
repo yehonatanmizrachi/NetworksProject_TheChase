@@ -90,6 +90,7 @@ class GameLogic:
             if response == "yes":
                 return 2
             else:
+                client.send_msg(STR_DB["disconnect"])
                 return 1
         # case 3: Game continue
         else:
