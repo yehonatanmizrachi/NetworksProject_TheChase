@@ -27,7 +27,7 @@ class GameManager:
     # and open a new thread for each client
     def get_new_clients(self):
         print("server is listening...")
-        self.socket.listen()
+        self.socket.listen(self.max_active_client + 1)
         while True:
             # wait for a new connection
             client_socket, client_address = self.socket.accept()

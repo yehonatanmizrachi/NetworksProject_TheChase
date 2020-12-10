@@ -61,7 +61,7 @@ def start_part1(socket):
 
     socket.init_window(WIDTH, HEIGHT, TITLE)
 
-    font_style = tk_font.Font(family=FONT_STYLE, size=15)
+    font_style = tk_font.Font(family=FONT_STYLE, size=18)
 
     main_frame = tk.Frame(socket.root, bg=BG, bd=10)
     main_frame.place(relwidth=1, relheight=1)

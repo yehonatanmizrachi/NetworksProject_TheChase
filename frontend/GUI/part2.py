@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.font as tk_font
+from PIL import Image, ImageTk
 from GUI_helper import *
 
 WIDTH = 700
@@ -35,8 +36,14 @@ def start_part2(socket):
         current_msg = socket.get_msg()
         if check_game_over(current_msg):
             if index == 5:
+                ll_label.destroy()
+                load1 = Image.open("Photos/dead@80px.png")
+                render1 = ImageTk.PhotoImage(load1)
+                ll_label2 = tk.Button(ll_frame, image=render1, bg="SteelBlue2", state="disabled")
+                ll_label2.image = render1
+                ll_label2.place(anchor='n', relx=0.5, rely=0.1, relwidth=1, relheight=0.8)
+
                 life_line(current_msg, q_gui_list)
-                ll_label["state"] = "disabled"
                 ans3_button["state"] = "disabled"
                 ans4_button["state"] = "disabled"
                 ll_label_var.set("0")
@@ -82,7 +89,10 @@ def start_part2(socket):
     ll_frame.place(anchor='nw', relx=0, rely=0, relwidth=0.3, relheight=0.2)
 
     ll_label_var = tk.StringVar()
-    ll_label = tk.Button(ll_frame, font=font_style, textvariable=ll_label_var, command=lambda: choose_answer(5))
+    load = Image.open("Photos/lifeline@80px.png")
+    render = ImageTk.PhotoImage(load)
+    ll_label = tk.Button(ll_frame, image=render, bg="SteelBlue2", command=lambda: choose_answer(5))
+    ll_label.image = render
     ll_label.place(anchor='n', relx=0.5, rely=0.1, relwidth=1, relheight=0.8)
 
     # money

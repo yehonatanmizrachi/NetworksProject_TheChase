@@ -27,7 +27,6 @@ class Client:
 
     def get_msg(self):
         msg = self.server.recv(HEADER).decode(FORMAT)
-        print(msg)
         return msg
 
     # close socket and exit game

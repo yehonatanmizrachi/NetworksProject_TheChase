@@ -1,6 +1,6 @@
 def update_gui_info(gui_list, info_list):
     gui_list[-1].set(info_list[-1])
-    gui_list[-2].set(info_list[-2])
+    gui_list[-2].set(f"Money: ${info_list[-2]}")
     for i in range(7):
         if i == info_list[1]:
             gui_list[0][i].set("Chaser")
