@@ -2,7 +2,7 @@ import tkinter as tk
 import tkinter.font as tk_font
 from part1 import start_part1
 
-WIDTH = 450
+WIDTH = 600
 HEIGHT = 300
 TITLE = "The Chase - part0"
 
