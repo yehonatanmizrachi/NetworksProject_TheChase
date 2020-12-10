@@ -23,7 +23,7 @@ def start_part2(socket):
                 socket.audio.stop()
                 socket.start_audio("lose")
             elif server_msg[0] == 'W':
-                end_msg = "Well Played. You Won " + money_label_var.get() + "$🙂!\nDo you want to play again?"
+                end_msg = "Well Played. You Won " + money_label_var.get() + "🙂!\nDo you want to play again?"
                 socket.audio.stop()
                 socket.start_audio("win")
             socket.start_game(end_msg)
