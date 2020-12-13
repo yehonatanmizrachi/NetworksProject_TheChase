@@ -16,7 +16,7 @@ class GameManager:
         self.msg_size = 1024
         self.format = 'utf-8'
         self.disconnect_message = "!DISCONNECT"
-        self.max_active_client = 3
+        self.max_active_client = 100
         # server socket
         # AF_INET -> address family IPV4, SOCK_STREAM -> protocol TCP
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -33,7 +33,7 @@ class GameManager:
             client_socket, client_address = self.socket.accept()
             if self.active_clients < self.max_active_client:
                 # start a new thread for the client and start the game
-                new_client = Client(client_socket, client_address)
+                new_client = Client(client_socket, client_address, self)
                 thread = threading.Thread(target=self.handle_client, args=(new_client,))
                 thread.start()
                 self.active_clients += 1

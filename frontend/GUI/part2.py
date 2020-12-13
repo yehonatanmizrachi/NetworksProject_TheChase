@@ -37,7 +37,7 @@ def start_part2(socket):
         if check_game_over(current_msg):
             if index == 5:
                 ll_label.destroy()
-                load1 = Image.open("Photos/dead@80px.png")
+                load1 = Image.open("Photos/dead@110px.png")
                 render1 = ImageTk.PhotoImage(load1)
                 ll_label2 = tk.Button(ll_frame, image=render1, bg="SteelBlue2", state="disabled")
                 ll_label2.image = render1
@@ -56,7 +56,7 @@ def start_part2(socket):
 
     socket.init_window(WIDTH, HEIGHT, TITLE)
 
-    font_style = tk_font.Font(family=FONT_STYLE, size=15)
+    font_style = tk_font.Font(family=socket.font, size=15)
 
     main_frame = tk.Frame(socket.root, bg="SteelBlue4", bd=10)
     main_frame.place(anchor='nw', relx=0.3, rely=0, relwidth=0.7, relheight=1)
@@ -67,19 +67,19 @@ def start_part2(socket):
 
     # answers
     ans1_label = tk.StringVar()
-    ans1_button = tk.Button(main_frame, textvariable=ans1_label, font='40', command=lambda: choose_answer(1))
+    ans1_button = tk.Button(main_frame, textvariable=ans1_label, font='40', bg=socket.button_bg, command=lambda: choose_answer(1))
     ans1_button.place(anchor='n', relx=0.3, rely=0.4, relwidth=0.3, relheight=0.2)
 
     ans2_label = tk.StringVar()
-    ans2_button = tk.Button(main_frame, textvariable=ans2_label, font='40', command=lambda: choose_answer(2))
+    ans2_button = tk.Button(main_frame, textvariable=ans2_label, font='40', bg=socket.button_bg, command=lambda: choose_answer(2))
     ans2_button.place(anchor='n', relx=0.7, rely=0.4, relwidth=0.3, relheight=0.2)
 
     ans3_label = tk.StringVar()
-    ans3_button = tk.Button(main_frame, textvariable=ans3_label, font='40', command=lambda: choose_answer(3))
+    ans3_button = tk.Button(main_frame, textvariable=ans3_label, font='40', bg=socket.button_bg, command=lambda: choose_answer(3))
     ans3_button.place(anchor='n', relx=0.3, rely=0.65, relwidth=0.3, relheight=0.2)
 
     ans4_label = tk.StringVar()
-    ans4_button = tk.Button(main_frame, textvariable=ans4_label, font='40', command=lambda: choose_answer(4))
+    ans4_button = tk.Button(main_frame, textvariable=ans4_label, font='40', bg=socket.button_bg, command=lambda: choose_answer(4))
     ans4_button.place(anchor='n', relx=0.7, rely=0.65, relwidth=0.3, relheight=0.2)
 
     q_gui_list = [q_label, ans1_label, ans2_label, ans3_label, ans4_label]

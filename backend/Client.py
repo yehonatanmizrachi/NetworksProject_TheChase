@@ -21,7 +21,7 @@ class Client:
             msg += f"{i+1}: {ans[0]}\n"
         return msg
 
-    def __init__(self, socket, address, bank_location=7):
+    def __init__(self, socket, address, game_manager, bank_location=7):
         ########################################
         # socket settings
         self.socket = socket
@@ -31,9 +31,11 @@ class Client:
         self.player = Player()
         self.chaser = Chaser()
         self.bank_location = bank_location
+        self.disconnect_message = "!DISCONNECT"
         self.random_questions = Client.get_random_questions()
         self.current_question = 0
         self.num_of_part1_q = 3
+        self.game_manager = game_manager
         ########################################
 
     def send_msg(self, msg):
@@ -43,7 +45,11 @@ class Client:
 
     def receive_msg(self):
         msg = self.socket.recv(self.msg_size).decode(self.format)
-        print(msg)
+        if msg == self.disconnect_message:
+            print("client suddenly disconnected. closing the socket and continue listening...")
+            self.socket.close()
+            self.game_manager.active_clients -= 1
+            exit()
         return msg
 
     # checks if the msg is valid. If not, ask for a new response
