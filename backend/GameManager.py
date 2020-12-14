@@ -16,7 +16,7 @@ class GameManager:
         self.msg_size = 1024
         self.format = 'utf-8'
         self.disconnect_message = "!DISCONNECT"
-        self.max_active_client = 100
+        self.max_active_client = 3
         # server socket
         # AF_INET -> address family IPV4, SOCK_STREAM -> protocol TCP
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
