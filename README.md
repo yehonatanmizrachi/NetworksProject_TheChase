@@ -5,4 +5,4 @@ https://lucid.app/lucidchart/38496ce7-a44f-49e9-a24d-2f5c851ca33e/edit?page=HWEp
 
 Python to exe: 
 1) pip install pyinstaller
-2) pyinstaller --onefile --windowed --icon=icon.ico game_manager.py
+2) pyinstaller [--onefile] [--windowed] [--icon=icon.ico] <game_manager.py>
