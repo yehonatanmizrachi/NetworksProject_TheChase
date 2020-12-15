@@ -7,7 +7,7 @@ WIDTH = 550
 HEIGHT = 400
 TITLE = "The Chase - part1"
 BG = '#80c1ff'
-PLAY_AGAIN_MSG = "You don't have any money ☹\nDo you want to play again?"
+PLAY_AGAIN_MSG = "You don't have any money ⚆_⚆\nDo you want to play again?"
 
 q_counter = 0
 

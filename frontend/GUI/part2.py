@@ -19,11 +19,11 @@ def start_part2(socket):
             location_frame.destroy()
             end_msg = ""
             if server_msg[0] == 'G':
-                end_msg = "Game Over. Chaser Won ☹!\nDo you want to play again?"
+                end_msg = "Game Over! The Chaser Won ಠ▃ಠ\nDo you want to play again?"
                 socket.audio.stop()
                 socket.start_audio("lose")
             elif server_msg[0] == 'W':
-                end_msg = "Well Played. You Won " + money_label_var.get() + "🙂!\nDo you want to play again?"
+                end_msg = "Well Played m( _ _ )m\nYou won " + money_label_var.get() + "!(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧\nDo you want to play again?"
                 socket.audio.stop()
                 socket.start_audio("win")
             socket.start_game(end_msg)
