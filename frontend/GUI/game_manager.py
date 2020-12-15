@@ -10,7 +10,7 @@ def exit_game():
 
 atexit.register(exit_game)
 
-START_PLAY_MSG = "Do you want to play?"
+START_PLAY_MSG = "Do you want to play? ✪ ω ✪"
 
 client_socket = Client()
 response = client_socket.get_msg()
