@@ -17,12 +17,15 @@ class Client:
         self.disconnect_message = "!DISCONNECT"
         self.lose_counter = -1
         self.root = tk.Tk()
+        self.icon = tk.PhotoImage(file="./Photos/icon.png")
+        self.root.iconphoto(False, self.icon)
         self.root.resizable(False, False)
         self.canvas = tk.Canvas(self.root)
         self.canvas.pack()
         self.audio = None
         self.button_bg = 'LightBlue2'
         self.font = "Purisa"
+        self.exit = False
 
     def send(self, msg):
         msg = str(msg)

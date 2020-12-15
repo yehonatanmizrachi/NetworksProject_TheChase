@@ -23,6 +23,7 @@ def start_part0(socket, start_game_msg):
         main_frame.destroy()
         socket.send("no")
         socket.close()
+        socket.exit = True
         sys.exit()
 
     main_frame = tk.Frame(socket.root, bg=BG, bd=10)

@@ -3,8 +3,9 @@ import atexit
 
 
 def exit_game():
-    client_socket.send(client_socket.disconnect_message)
-    client_socket.close()
+    if not client_socket.exit:
+        client_socket.send(client_socket.disconnect_message)
+        client_socket.close()
 
 
 atexit.register(exit_game)
